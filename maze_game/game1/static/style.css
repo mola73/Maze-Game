@@ -2,8 +2,16 @@
 
 html,
 body {
-  width: 100vw;
-  height: 100vh;
+  background-image: url("maze_back.png");
+  /* Full height */
+  height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  /* width: 100vw;
+  height: 100vh; */
   position: fixed;
   padding: 0;
   margin: 0;
@@ -25,6 +33,9 @@ body {
   display: inline-block;
   margin: auto;
   border-radius: 10px;
+  /* display: flex;
+  align-items: center;
+  justify-content: center; */
 }
 #mazeContainer #mazeCanvas {
   margin: 0;

@@ -1,21 +1,18 @@
-function myFunction(x) {
-  alert(typeof x);
-}
 function rand(max) {
   return Math.floor(Math.random() * max);
 }
 
-function shuffle(num) {
-  for (let i = 1; i < a.length; i++) {
+function shuffle(a) {
+  for (let i = a.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [a[i], a[j]] = [a[j], a[i]];
   }
-  return num;
+  return a;
 }
 
 function changeBrightness(factor, sprite) {
   var virtCanvas = document.createElement("canvas");
-  virtCanvas.width = 500; // set diesnions of canvas
+  virtCanvas.width = 500;
   virtCanvas.height = 500;
   var context = virtCanvas.getContext("2d");
   context.drawImage(sprite, 0, 0, 500, 500);
@@ -37,15 +34,13 @@ function changeBrightness(factor, sprite) {
 
 function displayVictoryMess(moves) {
   document.getElementById("moves").innerHTML = "You Moved " + moves + " Steps.";
-  changeVisablity("Message-Container");
+  toggleVisablity("Message-Container");
 }
 
-function changeVisablity(id) {
-  // this does not work if the meesage is visible
+function toggleVisablity(id) {
   if (document.getElementById(id).style.visibility == "visible") {
     document.getElementById(id).style.visibility = "hidden";
-  }
-  if (document.getElementById(id).style.visibility == "hidden") {
+  } else {
     document.getElementById(id).style.visibility = "visible";
   }
 }
@@ -95,7 +90,6 @@ function Maze(Width, Height) {
       mazeMap[y] = new Array(width);
       for (x = 0; x < width; ++x) {
         mazeMap[y][x] = {
-          // intiializing maze
           n: false,
           s: false,
           e: false,
@@ -140,11 +134,10 @@ function Maze(Width, Height) {
             mazeMap[pos.x][pos.y][direction] = true;
             mazeMap[nx][ny][modDir[direction].o] = true;
 
-            //Set Current cell as next cells Prior visited
+            //Set Currentcell as next cells Prior visited
             mazeMap[nx][ny].priorPos = pos;
             //Update Cell position to newly visited location
             pos = {
-              //new x and new y
               x: nx,
               y: ny,
             };
@@ -158,7 +151,7 @@ function Maze(Width, Height) {
 
       if (!move) {
         //  If it failed to find a direction,
-        //  move the current position back to the previous cell and Recall the method.
+        //  move the current position back to the prior cell and Recall the method.
         pos = mazeMap[pos.x][pos.y].priorPos;
       }
       if (numCells == cellsVisited) {
@@ -168,10 +161,7 @@ function Maze(Width, Height) {
   }
 
   function defineStartEnd() {
-    // i need to deifne start and end for the cpu
-    switch (
-      rand(4) //these are all random opalces to start and stop
-    ) {
+    switch (rand(4)) {
       case 0:
         startCoord = {
           x: 0,
@@ -218,7 +208,6 @@ function Maze(Width, Height) {
   genMap();
   defineStartEnd();
   defineMaze();
-  //These methods are always called when Maze() is called
 }
 
 function DrawMaze(Maze, ctx, cellsize, endSprite = null) {
@@ -235,15 +224,14 @@ function DrawMaze(Maze, ctx, cellsize, endSprite = null) {
   };
 
   function drawCell(xCord, yCord, cell) {
-    //if it is false it will be a line in the direction from the cell else it will be a space to move
     var x = xCord * cellSize;
     var y = yCord * cellSize;
 
     if (cell.n == false) {
-      ctx.beginPath(); //start a new line
-      ctx.moveTo(x, y); //move to where the line should start
-      ctx.lineTo(x + cellSize, y); //move to where the line should end
-      ctx.stroke(); // draw the line in between both points
+      ctx.beginPath();
+      ctx.moveTo(x, y);
+      ctx.lineTo(x + cellSize, y);
+      ctx.stroke();
     }
     if (cell.s === false) {
       ctx.beginPath();
@@ -266,7 +254,6 @@ function DrawMaze(Maze, ctx, cellsize, endSprite = null) {
   }
 
   function drawMap() {
-    //this does the drawing foe every cell together
     for (x = 0; x < map.length; x++) {
       for (y = 0; y < map[x].length; y++) {
         drawCell(x, y, map[x][y]);
@@ -292,7 +279,7 @@ function DrawMaze(Maze, ctx, cellsize, endSprite = null) {
           fraction
         );
         if (colorSwap) {
-          ctx.fillStyle = rancolor(10);
+          ctx.fillStyle = "rgba(0, 0, 0, 0.8)";
         } else {
           ctx.fillStyle = "rgba(255, 255, 255, 0.8)";
         }
@@ -300,9 +287,6 @@ function DrawMaze(Maze, ctx, cellsize, endSprite = null) {
         colorSwap = !colorSwap;
       }
     }
-  }
-  function rancolor(num) {
-    return `rgba(0,0,0,${rand(num)})`;
   }
 
   function drawEndSprite() {
@@ -509,7 +493,7 @@ function Player(maze, c, _cellsize, onComplete, sprite = null) {
 }
 
 var mazeCanvas = document.getElementById("mazeCanvas");
-var ctx = console.log(mazeCanvas.getContext("2d")); //this genrates an API to use manipulate an HTML canvas
+var ctx = mazeCanvas.getContext("2d");
 var sprite;
 var finishSprite;
 var maze, draw, player;
@@ -540,7 +524,7 @@ window.onload = function () {
     }
   };
   sprite = new Image();
-  sprite.src = "pac-man.gif" + "?" + new Date().getTime();
+  sprite.src = "./key.png" + "?" + new Date().getTime();
   sprite.setAttribute("crossOrigin", " ");
   sprite.onload = function () {
     sprite = changeBrightness(1.2, sprite);
@@ -550,7 +534,7 @@ window.onload = function () {
   };
 
   finishSprite = new Image();
-  finishSprite.src = "mazze_char.png" + "?" + new Date().getTime();
+  finishSprite.src = "./home.png" + "?" + new Date().getTime();
   finishSprite.setAttribute("crossOrigin", " ");
   finishSprite.onload = function () {
     finishSprite = changeBrightness(1.1, finishSprite);
@@ -582,7 +566,6 @@ function makeMaze() {
     player.unbindKeyDown();
     player = null;
   }
-  changeVisablity("Message-Container");
   var e = document.getElementById("diffSelect");
   difficulty = e.options[e.selectedIndex].value;
   cellSize = mazeCanvas.width / difficulty;
