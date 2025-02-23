@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maze Runner</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            background-image: url('serenity.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            font-family: Arial, sans-serif;
+            color: white;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 40px 20px;
+        }
+        h1 {
+            font-size: 70px;
+            margin-bottom: 10px;
+        }
+        .subheading {
+            font-size: 40px;
+            font-style: italic;
+            margin-bottom: 50px;
+        }
+        .content {
+            display: flex;
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+        .instructions {
+            max-width: 600px;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 20px;
+            border-radius: 10px;
+            flex: 1;
+        }
+        .instructions h2, {
+            color: black;
+            font-weight: bold;
+            font-style: italic;
+            font-family: 'Roboto Thin'
+
+        }
+        .button {
+            background: #ffcc00;
+            padding: 15px 30px;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-top: 30px;
+        }
+        .button:hover {
+            background: #ffaa00;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Maze Runner</h1>
+        <p class="subheading">by Harshika and Muhammad Olaniyan (Team 1)</p>
+        <div class="content">
+            <div class="instructions">
+                <h2>Instructions</h2>
+                <p>1. Stay inside the maze boundaries.</p>
+                <p>2. Reach the finish checkpoint as fast as possible.</p>
+                <p>3. Avoid collisions with maze walls.</p>
+                <p>4. Have fun and play fair!</p>
+            </div>
+
+        </div>
+        <button class="button">Start</button>
+    </div>
+</body>
+</html>
+
+
