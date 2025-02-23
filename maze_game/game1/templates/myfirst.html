@@ -4,35 +4,52 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MAze</title>
+    <title>Maze</title>
     <link rel="stylesheet" href="{% static 'style.css' %}" />
+    
     
   </head>
   
-  <body style="background-color: powderblue">
-    <!-- <img src="{% static './mazze_char.png' %}">
-    <img src="{% static 'pac-man.gif' %}"> -->
-    <div id="page">
-      <div id="message-Container">
-        <h1>MAze Runner!</h1>
-        <p>You are done.</p>
+  <body >
+    <script src="{% static 'Stopwatch.js' %}"></script>
+   <div class="stopwatch">
+    <div id="stopwatch">
+      00 : 00 : 00.0</div>
+ <button onClick="stopwatch.start();">Start<button> 
+<button onClick="stopwatch.stop();">Stop</button>
+<button onClick="stopwatch.reset();">Reset</button>
+   </div>
+
+     <div id="page">
+
+      <div id ="Message-Container">
+      <div id="message">
+        <h1>Good Job!</h1>
+        <p> Your are done.</p>
         <p id="moves"></p>
         <input
           id="okBtn"
           type="button"
-          onclick="changeVisability('Message-Container')"
-          value="Congratulations"
+          onclick='toggleVisability("Message-Container")'
+          value="wow!"
         />
       </div>
-    </div>
+    </div> 
 
-   <br> 
+   
+
+    <div id="view">
+      <div id="maze Container">
+        <canvas id="mazeCanvas" class="border" width='800' height="800"></canvas>
+      </div>
+    </div>
+    <br> 
     <div id="menu">
       <div class="custom-select">
         <select id="diffSelect">
-          <option value="10">Easy</option>
-          <option value="15">Medium</option>
-          <option value="20">Hard</option>
+          <option value="5">Easy</option>
+          <option value="10">Medium</option>
+          <option value="15">Hard</option>
         </select>
       </div>
       <input
@@ -43,32 +60,12 @@
       />
     </div>
 
-    <div id="view">
-      <div id="maze Container">
-        <canvas id="mazeCanvas" class="border" width='500' height="500"></canvas>
-      </div>
-    </div>
-
-    <p id="intructions">Win the game by....</p>
+    <p id="intructions">Win the game by using the arrow keys to naviagte to the end goal</p>
 
   </div>
 
   <script src="{% static 'logic.js' %}"></script>
-  <button onclick= "myFunction(Maze)">Click me!</button>
+ 
 
-
-    <!-- <script
-      type="text/javascript"
-      src="{% static 'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js' %}"
-    ></script>
-
-    <script
-      type="text/javascript"
-      src="{% static 'https://cdnjs.cloudflare.com/ajax/libs/jquery.touchswipe/1.6.18/jquery.touchSwipe.min.js' %}"
-    ></script> -->
-
-    <!-- <h1>Hello World this is Game 1 in the maze game</h1>
-    <p>Welcome to my first Django project!</p>
-     -->
   </body>
 </html>

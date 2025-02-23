@@ -38,10 +38,11 @@ function displayVictoryMess(moves) {
 }
 
 function toggleVisablity(id) {
-  if (document.getElementById(id).style.visibility == "visible") {
-    document.getElementById(id).style.visibility = "hidden";
+  var x = document.getElementbyId(id);
+  if (x.style.display === "none") {
+    x.style.display = "block";
   } else {
-    document.getElementById(id).style.visibility = "visible";
+    x.style.display = "none";
   }
 }
 
@@ -562,6 +563,8 @@ window.onresize = function () {
 };
 
 function makeMaze() {
+  stopwatch = new Stopwatch("stopwatch");
+  stopwatch.start();
   if (player != undefined) {
     player.unbindKeyDown();
     player = null;
