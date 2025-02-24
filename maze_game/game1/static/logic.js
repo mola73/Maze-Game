@@ -38,14 +38,12 @@ function displayVictoryMess(moves) {
 }
 
 function toggleVisablity(id) {
-  var x = document.getElementbyId(id);
-  if (x.style.display === "none") {
-    x.style.display = "block";
+  if (document.getElementById(id).style.visibility == "visible") {
+    document.getElementById(id).style.visibility = "hidden";
   } else {
-    x.style.display = "none";
+    document.getElementById(id).style.visibility = "visible";
   }
 }
-
 function Maze(Width, Height) {
   var mazeMap;
   var width = Width;

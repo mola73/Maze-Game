@@ -13,8 +13,10 @@
   <body >
     <script src="{% static 'Stopwatch.js' %}"></script>
    <div class="stopwatch">
-    <div id="stopwatch">
+    <div id="stopwatch" style="font-size: 28px; display: inline-block;">
       00 : 00 : 00.0</div>
+      <br>
+
  <button onClick="stopwatch.start();">Start<button> 
 <button onClick="stopwatch.stop();">Stop</button>
 <button onClick="stopwatch.reset();">Reset</button>
@@ -40,13 +42,14 @@
 
     <div id="view">
       <div id="maze Container">
-        <canvas id="mazeCanvas" class="border" width='800' height="800"></canvas>
+        <canvas id="mazeCanvas" class="border" width='400' height="400"></canvas>
       </div>
     </div>
     <br> 
     <div id="menu">
       <div class="custom-select">
         <select id="diffSelect">
+          <option value="0">Levels</option>
           <option value="5">Easy</option>
           <option value="10">Medium</option>
           <option value="15">Hard</option>
@@ -60,7 +63,9 @@
       />
     </div>
 
-    <p id="intructions">Win the game by using the arrow keys to naviagte to the end goal</p>
+    <p id="intructions">
+      Win the game by using the arrow keys to naviagte to the end goal</p>
+    
 
   </div>
 

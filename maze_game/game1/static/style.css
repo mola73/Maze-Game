@@ -24,7 +24,7 @@ body {
 }
 
 #view {
-  margin-top: 130px;
+  margin-top: 150px;
 }
 
 #mazeContainer {
@@ -34,7 +34,7 @@ body {
   border-radius: 10px;
 }
 #mazeContainer #mazeCanvas {
-  margin-bottom: 30px;
+  margin-bottom: 3000px;
   margin: 0;
   display: block;
   border: solid 2px black;
@@ -111,14 +111,21 @@ select:focus {
 #page #menu {
   margin: auto;
   padding: 10px;
-  height: 65px;
+  height: 95px;
   box-sizing: border-box;
+}
+.stopwatch {
+  margin: auto;
+  padding: 10px;
+  height: 95px;
+  box-sizing: border-box;
+  font-size: 60px;
 }
 #page #menu h1 {
   margin: 0;
   margin-bottom: 10px;
   font-weight: 600;
-  font-size: 3.2rem;
+  font-size: 10.2rem;
 }
 #page #view {
   position: absolute;
