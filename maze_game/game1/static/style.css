@@ -23,9 +23,9 @@ body {
   font-family: "Poppins", sans-serif;
 }
 
-#view {
-  margin-top: 150px;
-}
+/* #view {
+  
+} */
 
 #mazeContainer {
   opacity: 0;
@@ -34,7 +34,7 @@ body {
   border-radius: 10px;
 }
 #mazeContainer #mazeCanvas {
-  margin-bottom: 3000px;
+  /* margin-bottom: 300px; */
   margin: 0;
   display: block;
   border: solid 2px black;
@@ -116,9 +116,9 @@ select:focus {
 }
 .stopwatch {
   margin: auto;
-  padding: 10px;
+  /* padding: 10px; */
   height: 95px;
-  box-sizing: border-box;
+  /* box-sizing: border-box; */
   font-size: 60px;
 }
 #page #menu h1 {
@@ -129,7 +129,7 @@ select:focus {
 }
 #page #view {
   position: absolute;
-  top: 65px;
+  top: 25px;
   bottom: 0;
   left: 0;
   right: 0;
@@ -142,7 +142,7 @@ select:focus {
 }
 
 #instructions {
-  margin-top: 425px;
+  margin-top: 325px;
 }
 
 /* Extra small devices (phones, 600px and down) */
