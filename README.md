@@ -58,4 +58,3 @@ The project will be developed in the following stages:
 4. **Levine et al. (2012):**
    - **Summary:** Research examined the connection between puzzle play and spatial skills in 2-year-olds, revealing that... (the rest of the summary is incomplete). 
 
-This structured format should present your proposal clearly and logically!
