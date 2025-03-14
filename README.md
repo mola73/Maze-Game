@@ -46,7 +46,7 @@ The project will be developed in the following stages:
 “Maze Runner” is a unique and educational game that combines entertainment with learning, offering children an engaging introduction to coding concepts. By navigating a robot through challenging mazes, players will develop logical thinking, spatial awareness, and problem-solving abilities. The game’s progressive levels and reward system will keep players motivated and entertained throughout their journey.
 
 ## References:
-1. **Harshika:** 
+1. 
    - **Summary:** The Maze Game supports early childhood writing skills, such as copying symbol shapes, imitating simple words, practicing name writing, and developing fine motor skills. A study highlights that children aged 5-6 who participated in maze activities showed improved literacy skills compared to those who did not. This reinforces the effectiveness of playful learning methods like the Maze Game in fostering writing and literacy skills among young learners (Aprily et al., 2023).
 
 2. **Wang et al. (2011):**
