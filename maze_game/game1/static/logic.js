@@ -1,3 +1,6 @@
+// document.getElementById("startMazeBtn").addEventListener("click", function () {
+//   alert("Button clicked!");
+// });
 function rand(max) {
   return Math.floor(Math.random() * max);
 }
@@ -10,6 +13,8 @@ function shuffle(a) {
   return a;
 }
 
+/*Creates a temporary canvas, draws an image (sprite) onto it, and modifies the brightness of the image by a given factor. */
+
 function changeBrightness(factor, sprite) {
   var virtCanvas = document.createElement("canvas");
   virtCanvas.width = 500;
@@ -20,9 +25,9 @@ function changeBrightness(factor, sprite) {
   var imgData = context.getImageData(0, 0, 500, 500);
 
   for (let i = 0; i < imgData.data.length; i += 4) {
-    imgData.data[i] = imgData.data[i] * factor;
-    imgData.data[i + 1] = imgData.data[i + 1] * factor;
-    imgData.data[i + 2] = imgData.data[i + 2] * factor;
+    imgData.data[i] = Math.min(imgData.data[i] * factor, 255);
+    imgData.data[i + 1] = Math.min(imgData.data[i + 1] * factor, 255);
+    imgData.data[i + 2] = Math.min(imgData.data[i + 2] * factor, 255);
   }
   context.putImageData(imgData, 0, 0);
 
@@ -33,17 +38,48 @@ function changeBrightness(factor, sprite) {
 }
 
 function displayVictoryMess(moves) {
-  document.getElementById("moves").innerHTML = "You Moved " + moves + " Steps.";
-  toggleVisablity("Message-Container");
+  /*Displays the number of moves made by the player when they complete the maze.
+   */
+  stopwatch.stop();
+  document.getElementById("moves").innerHTML =
+    "You Moved " + moves + " Steps" + `Time: ${stopwatch.formatTime()} .`;
+
+  toggleVisibility("Message-Container");
+}
+function toggleVisibility(id) {
+  var element = document.getElementById(id);
+  element.classList.toggle("show");
 }
 
-function toggleVisablity(id) {
-  if (document.getElementById(id).style.visibility == "visible") {
-    document.getElementById(id).style.visibility = "hidden";
-  } else {
-    document.getElementById(id).style.visibility = "visible";
-  }
-}
+// function toggleVisibility(id) {
+//   let element = document.getElementById(id);
+//   if (!element) {
+//     console.error(`Element with ID '${id}' not found.`);
+//     return;
+//   }
+
+//   // Check computed style to determine visibility
+//   let isHidden =
+//     window.getComputedStyle(element).opacity === "0" ||
+//     element.style.display === "none";
+
+//   if (isHidden) {
+//     element.style.display = "block"; // Make it visible
+//     setTimeout(() => {
+//       element.style.opacity = "1"; // Fade in
+//     }, 10);
+//   } else {
+//     element.style.opacity = "0"; // Start fade out
+//     setTimeout(() => {
+//       element.style.display = "none"; // Hide completely after transition
+//     }, 500); // Ensure this matches the CSS transition duration
+//   }
+// }
+
+/*Defines a maze with a specified width and height. It creates a grid and uses a random maze generation algorithm (recursive backtracking) to create paths.
+
+It also defines the start and end coordinates for the maze. */
+
 function Maze(Width, Height) {
   var mazeMap;
   var width = Width;
@@ -85,9 +121,9 @@ function Maze(Width, Height) {
 
   function genMap() {
     mazeMap = new Array(height);
-    for (y = 0; y < height; y++) {
+    for (let y = 0; y < height; y++) {
       mazeMap[y] = new Array(width);
-      for (x = 0; x < width; ++x) {
+      for (let x = 0; x < width; ++x) {
         mazeMap[y][x] = {
           n: false,
           s: false,
@@ -160,6 +196,7 @@ function Maze(Width, Height) {
   }
 
   function defineStartEnd() {
+    // randomly generates start and end position
     switch (rand(4)) {
       case 0:
         startCoord = {
@@ -210,6 +247,7 @@ function Maze(Width, Height) {
 }
 
 function DrawMaze(Maze, ctx, cellsize, endSprite = null) {
+  /* Draws the maze on the HTML canvas (ctx) by iterating over the maze grid and rendering walls and the end goal (flag or sprite).*/
   var map = Maze.map();
   var cellSize = cellsize;
   var drawEndMethod;
@@ -309,25 +347,26 @@ function DrawMaze(Maze, ctx, cellsize, endSprite = null) {
     var canvasSize = cellSize * map.length;
     ctx.clearRect(0, 0, canvasSize, canvasSize);
   }
-
-  if (endSprite != null) {
-    drawEndMethod = drawEndSprite;
-  } else {
-    drawEndMethod = drawEndFlag;
-  }
+  console.log(endSprite);
+  // if (endSprite != null) {
+  //   drawEndMethod = drawEndSprite;
+  // } else {
+  drawEndMethod = drawEndFlag;
+  //}
   clear();
   drawMap();
   drawEndMethod();
 }
 
 function Player(maze, c, _cellsize, onComplete, sprite = null) {
+  /*Represents the player in the game. The player can move through the maze using arrow keys or swipe gestures. It tracks the player's moves and redraws their position on the canvas.*/
   var ctx = c.getContext("2d");
   var drawSprite;
   var moves = 0;
   drawSprite = drawSpriteCircle;
-  if (sprite != null) {
-    drawSprite = drawSpriteImg;
-  }
+  // if (sprite != null) {
+  //   drawSprite = drawSpriteImg;
+  // }
   var player = this;
   var map = maze.map();
   var cellCoords = {
@@ -339,7 +378,7 @@ function Player(maze, c, _cellsize, onComplete, sprite = null) {
 
   this.redrawPlayer = function (_cellsize) {
     cellSize = _cellsize;
-    drawSpriteImg(cellCoords);
+    drawSpriteCircle(cellCoords);
   };
 
   function drawSpriteCircle(coord) {
@@ -354,30 +393,33 @@ function Player(maze, c, _cellsize, onComplete, sprite = null) {
     );
     ctx.fill();
     if (coord.x === maze.endCoord().x && coord.y === maze.endCoord().y) {
+      console.log("game complete");
       onComplete(moves);
+
       player.unbindKeyDown();
     }
   }
 
-  function drawSpriteImg(coord) {
-    var offsetLeft = cellSize / 50;
-    var offsetRight = cellSize / 25;
-    ctx.drawImage(
-      sprite,
-      0,
-      0,
-      sprite.width,
-      sprite.height,
-      coord.x * cellSize + offsetLeft,
-      coord.y * cellSize + offsetLeft,
-      cellSize - offsetRight,
-      cellSize - offsetRight
-    );
-    if (coord.x === maze.endCoord().x && coord.y === maze.endCoord().y) {
-      onComplete(moves);
-      player.unbindKeyDown();
-    }
-  }
+  // function drawSpriteImg(coord) {
+  //   var offsetLeft = cellSize / 50;
+  //   var offsetRight = cellSize / 25;
+  //   ctx.drawImage(
+  //     sprite,
+  //     0,
+  //     0,
+  //     sprite.width,
+  //     sprite.height,
+  //     coord.x * cellSize + offsetLeft,
+  //     coord.y * cellSize + offsetLeft,
+  //     cellSize - offsetRight,
+  //     cellSize - offsetRight
+  //   );
+  //   if (coord.x === maze.endCoord().x && coord.y === maze.endCoord().y) {
+  //     console.log("game complete");
+  //     onComplete(moves);
+  //     player.unbindKeyDown();
+  //   }
+  // }
 
   function removeSprite(coord) {
     var offsetLeft = cellSize / 50;
@@ -483,6 +525,9 @@ function Player(maze, c, _cellsize, onComplete, sprite = null) {
 
   this.unbindKeyDown = function () {
     window.removeEventListener("keydown", check, false);
+    console.log(typeof $); // Should print 'function' if jQuery is loaded
+    console.log(typeof $.fn.swipe); // Should print 'function' if TouchSwipe is loaded
+
     $("#view").swipe("destroy");
   };
 
@@ -514,6 +559,7 @@ window.onload = function () {
   //Load and edit sprites
   var completeOne = false;
   var completeTwo = false;
+
   var isComplete = () => {
     if (completeOne === true && completeTwo === true) {
       console.log("Runs");
@@ -523,7 +569,8 @@ window.onload = function () {
     }
   };
   sprite = new Image();
-  sprite.src = "./key.png" + "?" + new Date().getTime();
+  // sprite.src =
+  //   "maze_game/game1/static/pac-man.gif" + "?" + new Date().getTime();
   sprite.setAttribute("crossOrigin", " ");
   sprite.onload = function () {
     sprite = changeBrightness(1.2, sprite);
@@ -533,7 +580,7 @@ window.onload = function () {
   };
 
   finishSprite = new Image();
-  finishSprite.src = "./home.png" + "?" + new Date().getTime();
+  // finishSprite.src = "./home.png" + "?" + new Date().getTime();
   finishSprite.setAttribute("crossOrigin", " ");
   finishSprite.onload = function () {
     finishSprite = changeBrightness(1.1, finishSprite);
@@ -559,10 +606,25 @@ window.onresize = function () {
     player.redrawPlayer(cellSize);
   }
 };
+document.addEventListener("DOMContentLoaded", function () {
+  console.log("DOM fully loaded");
+  document
+    .getElementById("startMazeBtn")
+    .addEventListener("click", function () {
+      console.log("Begin button clicked!");
 
+      makeMaze();
+    });
+});
+//global variable
+let stopwatch = new Stopwatch("stopwatch");
+//
 function makeMaze() {
-  stopwatch = new Stopwatch("stopwatch");
+  stopwatch.reset();
+  console.log("reset clock");
   stopwatch.start();
+  console.log("started clock");
+
   if (player != undefined) {
     player.unbindKeyDown();
     player = null;

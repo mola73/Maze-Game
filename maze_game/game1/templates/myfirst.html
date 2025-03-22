@@ -6,71 +6,80 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Maze</title>
     <link rel="stylesheet" href="{% static 'style.css' %}" />
-    
-    
   </head>
-  
-  <body >
+
+  <body>
     <script src="{% static 'Stopwatch.js' %}"></script>
-   <div class="stopwatch"style="font-size: 20px; display: inline-block;">
-    <div id="stopwatch" >
-      00 : 00 : 00.0</div>
-      <br>
+    <script>
+      //  <!-- checking if stopwatch is loaded and created before using it -->
+      document.addEventListener("DOMContentLoaded", function () {
+        if (typeof Stopwatch !== "undefined") {
+          window.stopwatch = new Stopwatch("stopwatch");
+        } else {
+          console.error("Stopwatch.js failed to load.");
+        }
+      });
+    </script>
 
- <button onClick="stopwatch.start();">Start<button> 
-<button onClick="stopwatch.stop();">Stop</button>
-<button onClick="stopwatch.reset();">Reset</button>
-   </div>
+    <div class="stopwatch" style="font-size: 20px; display: inline-block">
+      <div id="stopwatch">00 : 00 : 00.0</div>
+      <br />
 
-     <div id="page">
+      <button onClick="stopwatch.start();">Start</button>
+      <button onClick="stopwatch.stop();">Stop</button>
+      <button onClick="stopwatch.reset();">Reset</button>
 
-      <div id ="Message-Container">
-      <div id="message">
-        <h1>Good Job!</h1>
-        <p> Your are done.</p>
-        <p id="moves"></p>
-        <input
-          id="okBtn"
-          type="button"
-          onclick='toggleVisability("Message-Container")'
-          value="wow!"
-        />
-      </div>
-    </div> 
-
-   
-
-    <div id="view" >
-      <div id="maze Container"style="margin-top: 260px;">
-        <canvas id="mazeCanvas" class="border" width='400' height="400"></canvas>
-      </div>
-    </div>
-    <br> 
-    <div id="menu">
-      <div class="custom-select">
-        <select id="diffSelect">
-          <option value="0">Levels</option>
-          <option value="5">Easy</option>
-          <option value="10">Medium</option>
-          <option value="15">Hard</option>
-        </select>
-      </div>
-      <input
-        id="startMazeBtn"
-        type="button"
-        onclick="makeMaze()"
-        value="Begin"
-      />
+      <script>
+        document.addEventListener("DOMContentLoaded", () => {
+          window.stopwatch = new Stopwatch("stopwatch"); // Make Stopwatch global for button access
+        });
+      </script>
     </div>
 
-    <p id="intructions">
-      Win the game by using the arrow keys to naviagte to the end goal</p>
-    
+    <div id="page">
+      <!-- <div id="Message-Container">Hello! Click the button to hide me.</div> -->
 
-  </div>
+      <div id="Message-Container">
+        <div id="message">
+          <h1>Good Job!</h1>
+          <p>Your are done.</p>
+          <p id="moves"></p>
+        </div>
+      </div>
 
-  <script src="{% static 'logic.js' %}"></script>
- 
+      <div id="view">
+        <div id="mazeContainer" style="margin-top: 260px">
+          <canvas
+            id="mazeCanvas"
+            class="border"
+            width="400"
+            height="400"
+          ></canvas>
+        </div>
+      </div>
+      <br />
+      <div id="menu">
+        <div class="custom-select">
+          <select id="diffSelect">
+            <option value="0">Levels</option>
+            <option value="5">Easy</option>
+            <option value="10">Medium</option>
+            <option value="15">Hard</option>
+          </select>
+        </div>
+        <input id="startMazeBtn" type="button" value="Begin" />
+      </div>
+      <div>
+        <button onclick="toggleVisibility('Message-Container')">Score</button>
+      </div>
 
+      <p id="instructions">
+        Win the game by using the arrow keys to navigate to the end goal
+      </p>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.touchswipe/1.6.19/jquery.touchSwipe.min.js"></script>
+    <script src="{% static 'logic.js' %}"></script>
   </body>
 </html>

@@ -3,23 +3,12 @@
 html,
 body {
   background-image: url("two.jpeg");
-  /* Full height */
   height: 100%;
-
-  /* Center and scale the image nicely */
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
-  /* width: 100vw;
-  height: 100vh; */
-  position: fixed;
   padding: 0;
   margin: 0;
-  top: 0;
-  bottom: 0px;
-  left: 0;
-  right: 0;
-  background-color: transparent;
   font-family: "Poppins", sans-serif;
 }
 
@@ -28,17 +17,17 @@ body {
 } */
 
 #mazeContainer {
-  opacity: 0;
-  display: block;
+  display: inline-block;
   margin: auto;
   border-radius: 10px;
+  /*transition: opacity 0.5s ease-in-out; /*For smooth fade-in transition */
 }
+
 #mazeContainer #mazeCanvas {
-  /* margin-bottom: 300px; */
   margin: 0;
   display: block;
   border: solid 2px black;
-  /* height: 400px; */
+  height: 400px;
 }
 
 input,
@@ -57,21 +46,28 @@ select {
   text-decoration: none;
   appearance: none;
 }
+
 input:hover,
 select:hover {
   background-color: rgba(0, 0, 0, 0.7);
 }
+
 input:active,
 select:active {
   background-color: black;
 }
+
 input:focus,
-select:focus {
+select:focus,
+button:focus {
   outline: none;
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.8); /* Focus shadow effect */
 }
+
 .custom-select {
   display: inline-block;
 }
+
 .custom-select select {
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -79,10 +75,14 @@ select:focus {
   background-repeat: no-repeat;
   background-position: 125px center;
 }
-#Message-Container {
+
+/* #Message-Container {
+  opacity: 0;
   visibility: hidden;
+  transition: opacity 0.5s ease;
+  pointer-events: none; /* Prevent interactions when hidden 
   color: white;
-  display: block;
+  display: none; /* Start as hidden 
   width: 100vw;
   height: 100vh;
   position: fixed;
@@ -92,7 +92,23 @@ select:focus {
   right: 0;
   background-color: rgba(0, 0, 0, 0.3);
   z-index: 1;
+} */
+
+#Message-Container {
+  background-color: rgba(8, 8, 8, 0.3);
+  /*color: white;*/
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none; /* Prevent interactions when hidden */
+  transition: opacity 0.5s ease, visibility 0.5s ease; /* Smooth transition */
 }
+
+#Message-Container.show {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto; /* Enable interactions when visible */
+}
+
 #Message-Container #message {
   width: 300px;
   height: 300px;
@@ -102,33 +118,36 @@ select:focus {
   margin-left: -150px;
   margin-top: -150px;
 }
+
 #page {
   text-align: center;
   height: auto;
   width: auto;
   margin: auto;
 }
+
 #page #menu {
   margin: auto;
   padding: 10px;
   height: 95px;
   box-sizing: border-box;
 }
+
 .stopwatch {
   margin: auto;
-  /* padding: 10px; */
   height: 95px;
-  /* box-sizing: border-box; */
   font-size: 60px;
 }
+
 #page #menu h1 {
   margin: 0;
   margin-bottom: 10px;
   font-weight: 600;
   font-size: 10.2rem;
 }
+
 #page #view {
-  position: absolute;
+  position: relative;
   top: 25px;
   bottom: 0;
   left: 0;
@@ -136,13 +155,16 @@ select:focus {
   width: 100%;
   height: auto;
 }
+
 .border {
   border: 10px black solid;
   border-radius: 10px;
 }
-
 #instructions {
-  margin-top: 325px;
+  text-align: center;
+  margin: 10px auto; /* Reduce margin */
+  padding: 5px; /* Reduce padding */
+  max-width: 600px; /* Restrict width */
 }
 
 /* Extra small devices (phones, 600px and down) */
@@ -150,5 +172,9 @@ select:focus {
   input,
   select {
     width: 120px;
+  }
+
+  #page #menu h1 {
+    font-size: 5rem;
   }
 }

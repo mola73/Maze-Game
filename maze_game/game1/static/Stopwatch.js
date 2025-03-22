@@ -4,6 +4,9 @@ class Stopwatch {
     this.state = "paused";
     this.delay = delay;
     this.display = document.getElementById(id);
+    // if (!this.display) {
+    //   throw new Error(`Element with id "${id}" not found.`);
+    // }
     this.value = 0;
   }
   formatTime(ms) {
@@ -22,13 +25,14 @@ class Stopwatch {
     if (seconds < 10) {
       seconds = "0" + seconds;
     }
-    return hours + ":" + minutes + ":" + seconds + "." + ds;
+    return `${hours}:${minutes}:${seconds}.${ds}`;
   }
 
   update() {
     if (this.state == "running") {
       this.value += this.delay;
     }
+    //console.log("Updating:", this.formatTime(this.value)); // Debugging line
     this.display.innerHTML = this.formatTime(this.value);
   }
 
@@ -60,4 +64,3 @@ class Stopwatch {
     this.update();
   }
 }
-stopwatch = new Stopwatch("stopwatch");
