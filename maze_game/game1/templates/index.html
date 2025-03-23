@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Maze Runner</title>
     <link rel="stylesheet" href="{% static 'styleh.css' %}" />
+    <script src="{% static 'logic.js' %}"></script>
   </head>
   <body>
     <div class="container">
@@ -20,19 +21,41 @@
           <p>4. Have fun and play fair!</p>
         </div>
       </div>
-      <form action="http://127.0.0.1:8000/game1/">
+      <div
+        style="
+          display: flex;
+          gap: 10px;
+          justify-content: center;
+          margin-top: 20px;
+        "
+      >
+        <form action="http://127.0.0.1:8000/game1/">
+          <input
+            type="submit"
+            value="Start"
+            style="
+              height: 80px;
+              width: 160px;
+              font-size: 60px;
+              font-style: italic;
+              background-color: yellow;
+            "
+          />
+        </form>
+
         <input
-          type="submit"
-          value="Start"
+          type="button"
+          value="How to Play"
+          onclick="sendVoiceCommand('Stay inside the maze boundaries. Reach the finish checkpoint as fast as possible. Avoid collisions with maze walls. Have fun and play fair!')"
           style="
             height: 80px;
             width: 160px;
-            font-size: 60px;
+            font-size: 20px;
             font-style: italic;
-            background-color: yellow;
+            background-color: rgb(0, 255, 140);
           "
         />
-      </form>
+      </div>
     </div>
   </body>
 </html>

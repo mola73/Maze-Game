@@ -639,3 +639,26 @@ function makeMaze() {
     document.getElementById("mazeContainer").style.opacity = "100";
   }
 }
+
+//This part is meant for the speach module
+function sendVoiceCommand(command) {
+  fetch("http://127.0.0.1:8000/do_voices/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ command: command }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("Server response:", data);
+      if (data.message) {
+        console.log("Response: ", data.message);
+      } else {
+        console.error("Error: ", data.error);
+      }
+    })
+    .catch((error) => {
+      console.error("Error with the voice command request:", error);
+    });
+}
