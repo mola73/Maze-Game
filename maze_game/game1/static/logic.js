@@ -662,3 +662,41 @@ function sendVoiceCommand(command) {
       console.error("Error with the voice command request:", error);
     });
 }
+
+//this part is for saving the data to the database
+// Function to save game data
+function saveGameData(moves, timeElapsed) {
+  // Retrieve player name from localStorage
+  const playerName = localStorage.getItem("playerName");
+
+  if (!playerName) {
+    alert("Player name not found. Please reload the page and enter your name.");
+    return;
+  }
+
+  // Prepare the data to send in JSON format
+  const data = {
+    name: playerName,
+    moves: moves,
+    time_elapsed: timeElapsed,
+  };
+
+  // Send the data to the server using a POST request
+  fetch("/save_score/", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("Score saved:", data.message);
+    })
+    .catch((error) => {
+      console.error("Error saving score:", error);
+    });
+}
+
+// Call this function when the game is over and you have the player data
+// Example: saveGameData("Player1", 10, 120.45);

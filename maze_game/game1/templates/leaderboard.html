@@ -1,0 +1,39 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Leaderboard</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>Leaderboard</h1>
+      <p>Here are the top scores:</p>
+
+      <table border="1">
+        <thead>
+          <tr>
+            <th>Player Name</th>
+            <th>Moves</th>
+            <th>Time Elapsed</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for score in scores %}
+          <tr>
+            <td>{{ score.name }}</td>
+            <td>{{ score.moves }}</td>
+            <td>{{ score.time_elapsed }}</td>
+          </tr>
+          {% empty %}
+          <tr>
+            <td colspan="3">No scores available yet.</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>
