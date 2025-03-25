@@ -2,6 +2,7 @@ body {
   margin: 0;
   padding: 0;
   text-align: center;
+  overflow: hidden;
   background-image: url("serenity.jpeg");
   background-size: cover;
   background-position: center;
@@ -9,6 +10,35 @@ body {
   font-family: Arial, sans-serif;
   color: white;
 }
+/* Style for the name input field */
+#name-container {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.name-input {
+  width: 300px;
+  padding: 10px;
+  font-size: 18px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  transition: border-color 0.3s ease;
+}
+
+.name-input:focus {
+  border-color: #007bff; /* Blue border when focused */
+  outline: none; /* Remove outline on focus */
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+}
+
 .container {
   display: flex;
   flex-direction: column;

@@ -1,14 +1,12 @@
 class Stopwatch {
   constructor(id, delay = 100) {
-    //Delay in ms
+    // Delay in ms
     this.state = "paused";
     this.delay = delay;
     this.display = document.getElementById(id);
-    // if (!this.display) {
-    //   throw new Error(`Element with id "${id}" not found.`);
-    // }
     this.value = 0;
   }
+
   formatTime(ms) {
     var hours = Math.floor(ms / 3600000);
     var minutes = Math.floor((ms - hours * 3600000) / 60000);
@@ -32,7 +30,6 @@ class Stopwatch {
     if (this.state == "running") {
       this.value += this.delay;
     }
-    //console.log("Updating:", this.formatTime(this.value)); // Debugging line
     this.display.innerHTML = this.formatTime(this.value);
   }
 
@@ -56,11 +53,18 @@ class Stopwatch {
         this.interval = null;
       }
     }
+    // Return the current time when the stopwatch stops
+    return this.value;
   }
 
   reset() {
     this.stop();
     this.value = 0;
     this.update();
+  }
+
+  // Optional method to get the time without stopping the stopwatch
+  getTime() {
+    return this.value;
   }
 }

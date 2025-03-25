@@ -20,7 +20,44 @@
         }
       });
     </script>
+    <div>
+      <button
+        id="leaderboard-button"
+        style="
+          float: right;
+          height: 80px;
+          width: 160px;
 
+          font-style: italic;
+          background-color: yellow;
+        "
+        onclick="leaderboard()"
+      >
+        Leaderboard
+      </button>
+      <button
+        id="back_to_start-button"
+        style="
+          float: right;
+          height: 80px;
+          width: 160px;
+          font-size: 20px;
+          font-style: italic;
+          background-color: yellow;
+        "
+        onclick="startpage()"
+      >
+        back
+      </button>
+      <script>
+        function leaderboard() {
+          window.location.href = "/leaderboard/";
+        }
+        function startpage() {
+          window.location.href = "/start/";
+        }
+      </script>
+    </div>
     <div class="stopwatch" style="font-size: 20px; display: inline-block">
       <div id="stopwatch">00 : 00 : 00.0</div>
       <br />

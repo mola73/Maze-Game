@@ -42,6 +42,7 @@ from django.http import JsonResponse
 from .models import PlayerScore
 import json
 
+@csrf_exempt
 # This view will receive data from the frontend (name, moves, time) and save it to the database.
 def save_score(request):
     if request.method == 'POST':

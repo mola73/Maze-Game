@@ -8,6 +8,27 @@
     <link rel="stylesheet" href="{% static 'style.css' %}" />
   </head>
   <body>
+    <div>
+      <button
+        id="back_to_game-button"
+        style="
+          float: right;
+          height: 80px;
+          width: 160px;
+          font-size: 20px;
+          font-style: italic;
+          background-color: yellow;
+        "
+        onclick="back()"
+      >
+        Go Back
+      </button>
+      <script>
+        function back() {
+          window.location.href = "/game1/";
+        }
+      </script>
+    </div>
     <div class="container">
       <h1>Leaderboard</h1>
       <p>Here are the top scores:</p>

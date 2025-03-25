@@ -41,8 +41,7 @@ function displayVictoryMess(moves) {
   /*Displays the number of moves made by the player when they complete the maze.
    */
   stopwatch.stop();
-  document.getElementById("moves").innerHTML =
-    "You Moved " + moves + " Steps" + `Time: ${stopwatch.formatTime()} .`;
+  document.getElementById("moves").innerHTML = "You Moved " + moves + " Steps";
 
   toggleVisibility("Message-Container");
 }
@@ -50,31 +49,6 @@ function toggleVisibility(id) {
   var element = document.getElementById(id);
   element.classList.toggle("show");
 }
-
-// function toggleVisibility(id) {
-//   let element = document.getElementById(id);
-//   if (!element) {
-//     console.error(`Element with ID '${id}' not found.`);
-//     return;
-//   }
-
-//   // Check computed style to determine visibility
-//   let isHidden =
-//     window.getComputedStyle(element).opacity === "0" ||
-//     element.style.display === "none";
-
-//   if (isHidden) {
-//     element.style.display = "block"; // Make it visible
-//     setTimeout(() => {
-//       element.style.opacity = "1"; // Fade in
-//     }, 10);
-//   } else {
-//     element.style.opacity = "0"; // Start fade out
-//     setTimeout(() => {
-//       element.style.display = "none"; // Hide completely after transition
-//     }, 500); // Ensure this matches the CSS transition duration
-//   }
-// }
 
 /*Defines a maze with a specified width and height. It creates a grid and uses a random maze generation algorithm (recursive backtracking) to create paths.
 
@@ -394,6 +368,7 @@ function Player(maze, c, _cellsize, onComplete, sprite = null) {
     ctx.fill();
     if (coord.x === maze.endCoord().x && coord.y === maze.endCoord().y) {
       console.log("game complete");
+      saveGameData(moves, stopwatch.getTime()); // save the game info to the database/leaderboard
       onComplete(moves);
 
       player.unbindKeyDown();
