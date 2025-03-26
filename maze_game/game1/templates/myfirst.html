@@ -83,14 +83,22 @@
           <p id="moves"></p>
         </div>
       </div>
+      <div>
+        <h1 id="playername">Name</h1>
+        <script>
+          var x = localStorage.getItem("playerName");
+          document.getElementById("playername").innerHTML =
+            "😃 Welcome " + x + "! 😃";
+        </script>
+      </div>
 
       <div id="view">
-        <div id="mazeContainer" style="margin-top: 260px">
+        <div id="mazeContainer" style="margin-top: 160px">
           <canvas
             id="mazeCanvas"
             class="border"
-            width="400"
-            height="400"
+            width="800"
+            height="800"
           ></canvas>
         </div>
       </div>
@@ -107,7 +115,8 @@
         <input id="startMazeBtn" type="button" value="Begin" />
       </div>
       <div>
-        <button onclick="toggleVisibility('Message-Container')">Score</button>
+        <!-- <button onclick="toggleVisibility('Message-Container')">Score</button> -->
+        <input id="score" type="button" value="Score" />
       </div>
 
       <p id="instructions">

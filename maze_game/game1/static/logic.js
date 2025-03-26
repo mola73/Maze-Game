@@ -42,6 +42,7 @@ function displayVictoryMess(moves) {
    */
   stopwatch.stop();
   document.getElementById("moves").innerHTML = "You Moved " + moves + " Steps";
+  sendVoiceCommand("You Moved " + moves + " Steps in" + stopwatch.getTime());
 
   toggleVisibility("Message-Container");
 }
@@ -590,6 +591,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
       makeMaze();
     });
+  document.getElementById("score").addEventListener("click", function () {
+    console.log("score button clicked!");
+
+    toggleVisibility("Message-Container");
+  });
 });
 //global variable
 let stopwatch = new Stopwatch("stopwatch");
@@ -617,7 +623,7 @@ function makeMaze() {
 
 //This part is meant for the speach module
 function sendVoiceCommand(command) {
-  fetch("http://127.0.0.1:8000/do_voices/", {
+  fetch("/do_voices/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

@@ -59,12 +59,14 @@ h1 {
 }
 
 .content {
+  font-size: 200px;
   display: flex;
   gap: 10px;
   margin-bottom: 20px;
 }
 .instructions {
   background: rgba(255, 255, 255, 0.2);
+  font-size: 33px;
   padding: 20px;
   border-radius: 10px;
   flex: 1;
