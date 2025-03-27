@@ -36,6 +36,14 @@ function changeBrightness(factor, sprite) {
   virtCanvas.remove();
   return spriteOutput;
 }
+document.addEventListener("DOMContentLoaded", function () {
+  const canvas = document.getElementById("yourCanvasID");
+  if (canvas) {
+    const ctx = canvas.getContext("2d");
+  } else {
+    console.error("Canvas element not found!");
+  }
+});
 
 function displayVictoryMess(moves) {
   /*Displays the number of moves made by the player when they complete the maze.
@@ -622,22 +630,17 @@ function makeMaze() {
 }
 
 //This part is meant for the speach module
-function sendVoiceCommand(command) {
+function sendVoiceCommand(text) {
   fetch("/do_voices/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ command: command }),
+    body: JSON.stringify({ text: text }), // Send JSON data correctly
   })
     .then((response) => response.json())
     .then((data) => {
-      console.log("Server response:", data);
-      if (data.message) {
-        console.log("Response: ", data.message);
-      } else {
-        console.error("Error: ", data.error);
-      }
+      console.log("Voice Response:", data.message || data.error);
     })
     .catch((error) => {
       console.error("Error with the voice command request:", error);
@@ -647,7 +650,6 @@ function sendVoiceCommand(command) {
 //this part is for saving the data to the database
 // Function to save game data
 function saveGameData(moves, timeElapsed) {
-  // Retrieve player name from localStorage
   const playerName = localStorage.getItem("playerName");
 
   if (!playerName) {
@@ -655,18 +657,17 @@ function saveGameData(moves, timeElapsed) {
     return;
   }
 
-  // Prepare the data to send in JSON format
   const data = {
     name: playerName,
     moves: moves,
     time_elapsed: timeElapsed,
   };
 
-  // Send the data to the server using a POST request
   fetch("/save_score/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
+      "X-CSRFToken": getCSRFToken(), // Ensure CSRF protection
     },
     body: JSON.stringify(data),
   })
@@ -677,6 +678,14 @@ function saveGameData(moves, timeElapsed) {
     .catch((error) => {
       console.error("Error saving score:", error);
     });
+}
+
+// Function to get CSRF token
+function getCSRFToken() {
+  return document.cookie
+    .split("; ")
+    .find((row) => row.startsWith("csrftoken="))
+    ?.split("=")[1];
 }
 
 // Call this function when the game is over and you have the player data

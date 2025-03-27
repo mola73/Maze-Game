@@ -4,7 +4,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Leaderboard</title>
+    <title>Leaderboard - Maze Runner</title>
     <link rel="stylesheet" href="{% static 'style.css' %}" />
   </head>
   <body>
@@ -28,33 +28,35 @@
           window.location.href = "/game1/";
         }
       </script>
-    </div>
+      </div>
     <div class="lcontainer">
-      <h1>Leaderboard</h1>
-      <p>Here are the top scores:</p>
+      <div id="ltitle"> <h1 >🏆 Leaderboard 🏆</h1></div>
+     
+      <p class="subheading">Top 10 Players</p>
 
       <table border="1">
-        <thead>
-          <tr>
-            <th>Player</th>
-            <th>Moves</th>
-            <th>Time Elapsed</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for score in scores %}
-          <tr>
-            <td>{{ score.name }}</td>
-            <td>{{ score.moves }}</td>
-            <td>{{ score.time_elapsed }}</td>
-          </tr>
-          {% empty %}
-          <tr>
-            <td colspan="3">No scores available yet.</td>
-          </tr>
-          {% endfor %}
-        </tbody>
+        <tr>
+          <th>Rank</th>
+          <th>Name</th>
+          <th>Moves</th>
+          <th>Time Elapsed</th>
+        </tr>
+        {% for score in scores %}
+        <tr>
+          <td>{{ forloop.counter }}</td>
+          <td>{{ score.name }}</td>
+          <td>{{ score.moves }}</td>
+          <td>{{ score.time_elapsed }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="4">No scores recorded yet.</td>
+        </tr>
+        {% endfor %}
       </table>
+
+      
+      </a>
     </div>
   </body>
 </html>

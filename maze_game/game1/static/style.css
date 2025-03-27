@@ -263,15 +263,31 @@ button:focus {
 #leaderboard-button:active {
   transform: scale(0.95);
 }
+ltitle {
+  top: 500px;
+}
 .lcontainer {
   font-size: 50px;
   height: 100px;
   width: 1000px;
-  position: absolute;
+  /* position: absolute; */
+  position: relative; /* Ensures elements inside don't float over others */
+  text-align: center;
+  padding-top: 50px; /* Adjust padding so it doesn’t cover the button */
 
   left: 40%;
   justify-content: center;
 }
+#ltitle {
+  position: relative; /* Prevents overlap */
+  z-index: 2; /* Makes sure it doesn’t overlap other elements */
+}
+
+#back_to_game-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 3; /* Ensures button stays on top */
 
 .stopwatch {
   font-size: 30px;

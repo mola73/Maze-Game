@@ -6,33 +6,41 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
 from .utils import speak  # Import the speak function from utils.py
-
+import threading
+import pyttsx3
 
 from django.shortcuts import render
 from .models import PlayerScore
 
 @csrf_exempt  # Disable CSRF for testing (optional, use CSRF token in production)
+
+
+
 def do_voices(request):
-    if request.method == 'POST':  # Handle only POST requests
-        print("Received a POST request")  # Debugging line
+    if request.method == "POST":
         try:
-            # Get JSON data from frontend
-            data = json.loads(request.body)  
-            command = data.get('command', '')
-            print(f"Command: {command}")  # Check the received command
+            # Parse JSON data from request body
+            data = json.loads(request.body)
+            text = data.get("text", "No input text received")
 
-            # Process the command (Customize this for your game logic)
-            if command:
-                response = f'Processing your command: {command}'
-                # Speak the response (server-side TTS)
-                speak(response)  # Calls the speak() function in utils.py
+            if not text.strip():
+                return JsonResponse({"error": "Empty text received"}, status=400)
 
-                return JsonResponse({"message": response})
-            else:
-                return JsonResponse({"error": "No command received"}, status=400)
+            def run_tts():
+                engine = pyttsx3.init()
+                engine.say(text)
+                engine.runAndWait()
+
+            # Run text-to-speech in a separate thread
+            tts_thread = threading.Thread(target=run_tts)
+            tts_thread.start()
+
+            return JsonResponse({"message": f"Speaking: {text}"})
 
         except json.JSONDecodeError:
-            return JsonResponse({"error": "Invalid JSON data"}, status=400)
+            return JsonResponse({"error": "Invalid JSON received"}, status=400)
+        except Exception as e:
+            return JsonResponse({"error": str(e)}, status=500)
     
     # Return error for any other method (e.g., GET)
     return JsonResponse({"error": "Invalid request method"}, status=405)
@@ -42,43 +50,34 @@ from django.http import JsonResponse
 from .models import PlayerScore
 import json
 
-@csrf_exempt
+@csrf_exempt # thisis not supposed ot be here when not testing
 # This view will receive data from the frontend (name, moves, time) and save it to the database.
 def save_score(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         try:
-            # Parse the incoming JSON data
             data = json.loads(request.body)
-            name = data.get('name', '')
-            moves = data.get('moves', 0)
-            time_elapsed = data.get('time_elapsed', 0.0)
+            name = data.get("name")
+            moves = data.get("moves")
+            time_elapsed = data.get("time_elapsed")
 
-            if not name:
-                return JsonResponse({"error": "Player name is required"}, status=400)
+            if not name or moves is None or time_elapsed is None:
+                return JsonResponse({"error": "Missing data"}, status=400)
 
-            # Save to the database
-            player_score = PlayerScore.objects.create(
-                name=name,
-                moves=moves,
-                time_elapsed=time_elapsed
-            )
-
-            # Return a success response
+            # Save to database
+            PlayerScore.objects.create(name=name, moves=moves, time_elapsed=time_elapsed)
+            
             return JsonResponse({"message": "Score saved successfully!"})
-
-        except json.JSONDecodeError:
-            return JsonResponse({"error": "Invalid JSON data"}, status=400)
         except Exception as e:
             return JsonResponse({"error": str(e)}, status=500)
 
-    return JsonResponse({"error": "Invalid request method"}, status=405)
+    return JsonResponse({"error": "Invalid request"}, status=400)
+
  #This is for viewing the leaderboard
  
 
 def leaderboard(request):
-    # Fetch all scores, ordered by time_elapsed or moves, depending on your game logic
-    scores = PlayerScore.objects.all().order_by('time_elapsed')  # You can change ordering here
-    return render(request, 'leaderboard.html', {'scores': scores})
+    scores = PlayerScore.objects.order_by("moves", "time_elapsed")[:10]  # Top 10 scores
+    return render(request, "leaderboard.html", {"scores": scores})
 
 # Create your views here.
 def game1(request):
