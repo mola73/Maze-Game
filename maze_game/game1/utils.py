@@ -1,9 +1,10 @@
 import pyttsx3
 import threading
 
+engine = pyttsx3.init()
+engine.setProperty('rate', 135)     # setting up new voice rateS
 def speak(text):
     def run_tts():
-        engine = pyttsx3.init()
         engine.say(text)
         engine.runAndWait()
 

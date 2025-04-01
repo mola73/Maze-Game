@@ -1,6 +1,14 @@
-// document.getElementById("startMazeBtn").addEventListener("click", function () {
-//   alert("Button clicked!");
-// });
+const clickSound = new Audio("/static/sounds/mouse-click-104737.mp3");
+
+function playAudio(audio) {
+  audio.play();
+}
+
+// Example: Play sound on button click
+document.getElementById("leaderboard-button").addEventListener("click", () => {
+  playAudio(clickSound);
+});
+
 function rand(max) {
   return Math.floor(Math.random() * max);
 }
@@ -37,7 +45,7 @@ function changeBrightness(factor, sprite) {
   return spriteOutput;
 }
 document.addEventListener("DOMContentLoaded", function () {
-  const canvas = document.getElementById("yourCanvasID");
+  const canvas = document.getElementById("mazeCanvas");
   if (canvas) {
     const ctx = canvas.getContext("2d");
   } else {
