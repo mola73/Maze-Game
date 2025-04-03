@@ -135,10 +135,12 @@ Maze-Game/<br>
 │   ├── __init__.py        # Game logic functions like generating mazes and handling commands.<br>
 │   ├── admin.py           # Admin interface setup for managing game data.<br>
 │   ├── apps.py            # App configuration.<br>
-│   ├── models.py          # Game models for storing data, like player scores.<br>
+│   ├── models.py          # Game models are used to store data, like player scores.<br>
 │   ├── urls.py            # URL routing for Django views.<br>
 │   ├── utils.py           # Utility functions like handling robot movements.<br>
 │   ├── views.py           # Methods for rendering HTML templates and handling game actions.<br>
+│   ├── requirements.txt   #List of dependencies for the project<br>
+<br>
 <br>
 └── manage.py              # Django project management script.<br>
 
